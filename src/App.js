@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 // import firebase from './firebase';
 import axios from 'axios';
+import Dropdown from './Dropdown.js'
+
 
 class App extends Component {
   constructor(){
@@ -12,6 +14,8 @@ class App extends Component {
     }
   }
 
+  
+
   // component is mounted after the first rendering
   componentDidMount(){
     // make an AJAX request for art
@@ -21,40 +25,22 @@ class App extends Component {
       dataResponse: 'json',
     }).then(results => {
       const nationalHolidays = results.data.response.holidays
-      console.log(nationalHolidays);
+      // console.log(nationalHolidays);
 
-      const fuck = [];
-      console.log(fuck);
+      const holidayNames = [];
+      const holidayDates = [];
+      console.log(holidayNames);
+      console.log(holidayDates);
       nationalHolidays.forEach(holiday => {
-        fuck.push(holiday.name)
-        // console.log(holiday.name);
+        holidayNames.push(holiday.name)
+        holidayDates.push(holiday.date.iso)
+
         this.setState({
-          holidays: fuck,
-          // date: holidayDate
+          holidays: holidayNames,
+          date: holidayDates
         })
       });
 
-      
-
-
-      // for (let index = 0; index < nationalHolidays.length; index++) {
-      //   const holidayName = nationalHolidays;
-      //   const holidayDate = nationalHolidays[index].date.iso;
-        // console.log(holidayName);
-        // console.log(holidayDate);
-
-        // const newState = [];
-        // for (const key in nationalHolidays) {
-        //   newState.push({
-        //     key: key,
-        //     title: nationalHolidays[key]
-        //   });
-          
-        //   console.log(newState); 
-
-          
-        // }
-      // }
     })
   }
 
@@ -62,11 +48,13 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Holiday Planner</h1>
-        {this.state.holidays.map(test => {
+        {this.state.holidays.map(names => {
           return (
-            <p>{test}</p>
+            // <p>{names}</p>
+            <Dropdown name={names} />
           )
         })}
+        <Dropdown />
       </div>
     );
   }

@@ -11,6 +11,11 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 .App {
   text-align: center;
 }
+
+
+.color {
+  color: blue;
+}
 /* 
 .App-logo {
   height: 40vmin;
