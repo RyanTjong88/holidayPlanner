@@ -17,8 +17,13 @@ class App extends Component {
       date: [],
       selectedHoliday: '',
       // selectedHolidayDate: '',
-      holidayPlans: [],
+      holidayPlans: 
+        {
+          holidayName: '',
+          plans: ''
+        },
 
+      userText: ''
     }
   }
 
@@ -44,6 +49,8 @@ class App extends Component {
         holidayPlans: newState
       });
     console.log(this.state.holidayPlans);
+    
+
     });
   }
 
@@ -101,20 +108,36 @@ class App extends Component {
 
   }
   
-  handleClick = (event) => {
-    // console.log(event.target.value);  // user input data
+  handleClick = (e) => {
+    // console.log(e.target.value);  // user input data
+    console.log(this.state.selectedHoliday);
     this.setState({
-      selectedHoliday: event.target.value
+      selectedHoliday: e.target.value,
+      holidayName: e.target.value
+
     });
   }
 
-  // handleHolidayChange = (event) => {
-  //   console.log(event.target.value);  // user input data
+  handleHolidayChange = (event) => {
+    console.log(event.target.value);  // user input data
 
-  //   this.setState({
-  //     holidayPlans: event.target.value
-  //   });
-  // }
+    this.setState({
+      // holidayPlans: event.target.value
+      userText: event.target.value
+      // {
+      //   plans: ''
+      // }
+    });   
+  }
+
+  handleTest = (e) => {
+    console.log(e)
+    this.setState({
+      // holidayPlans: event.target.value
+        userText: e.target.value
+      
+    }); 
+  }
   
   
   handleHolidaySubmit = (event) => {
@@ -122,10 +145,11 @@ class App extends Component {
     // open portal to Firebase
     const dbRef = firebase.database().ref();
     // add new record to Firebase
-    dbRef.push(this.state.holidayPlans);
+    // I want to save my <h2> as the key: and the text in the text area to the data[key]
+    dbRef.push(this.state.userText);
     // reset input field
     this.setState({
-      holidayPlans: ''
+      userText: ''
     });
   }
 
@@ -154,9 +178,9 @@ class App extends Component {
           <section>
             <form action="submit" onSubmit={this.handleHolidaySubmit}>
 
-              <h2>{this.state.selectedHoliday}</h2>
+              <h2 onChange={this.handleTest} value={this.state.selectedHoliday}>{this.state.selectedHoliday}</h2>
 
-              <textarea name="plans" cols="30" rows="10" onChange={this.handleHolidayChange} ></textarea>
+              <textarea name="plans" cols="30" rows="10" onChange={this.handleHolidayChange} value={this.state.userText}></textarea>
               <div>
                 <Button />
               </div>
