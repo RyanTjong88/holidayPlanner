@@ -17,13 +17,17 @@ class App extends Component {
       date: [],
       selectedHoliday: '',
       // selectedHolidayDate: '',
-      holidayPlans: 
-        {
-          holidayName: '',
-          plans: ''
-        },
+      holidayPlans: [
+        // {
+        //   holidayName: '',
+        //   plans: ''
+        // },
+      ],
 
-      userText: ''
+      test: {
+        userHoliday: '',
+        userText: ''
+      }
     }
   }
 
@@ -49,6 +53,10 @@ class App extends Component {
         holidayPlans: newState
       });
     console.log(this.state.holidayPlans);
+
+    console.log(this.state.holidayPlans[0].key);
+    console.log(this.state.holidayPlans[0].plannerData);
+
     
 
     });
@@ -110,34 +118,34 @@ class App extends Component {
   
   handleClick = (e) => {
     // console.log(e.target.value);  // user input data
-    console.log(this.state.selectedHoliday);
+    // console.log(this.state.selectedHoliday);
     this.setState({
       selectedHoliday: e.target.value,
-      holidayName: e.target.value
+      test: {
+        userHoliday: e.target.value
+      }
 
     });
   }
 
-  handleHolidayChange = (event) => {
-    console.log(event.target.value);  // user input data
-
+  handlePlans = (event) => {
+    // console.log(event.target.value);  // user input data
     this.setState({
-      // holidayPlans: event.target.value
-      userText: event.target.value
-      // {
-      //   plans: ''
-      // }
+      test: {
+        userHoliday: this.state.test.userHoliday,
+        userText: event.target.value
+      }
     });   
   }
 
-  handleTest = (e) => {
-    console.log(e)
-    this.setState({
-      // holidayPlans: event.target.value
-        userText: e.target.value
+  // handleTest = (e) => {
+  //   console.log(e)
+  //   this.setState({
+  //     // holidayPlans: event.target.value
+  //       userText: e.target.value
       
-    }); 
-  }
+  //   }); 
+  // }
   
   
   handleHolidaySubmit = (event) => {
@@ -146,10 +154,16 @@ class App extends Component {
     const dbRef = firebase.database().ref();
     // add new record to Firebase
     // I want to save my <h2> as the key: and the text in the text area to the data[key]
-    dbRef.push(this.state.userText);
+    dbRef.push(this.state.test);
+    // dbRef.push(this.state.userHoliday);
+
+
     // reset input field
     this.setState({
-      userText: ''
+      test: {
+        userHoliday: '',
+        userText: ''
+      }
     });
   }
 
@@ -178,9 +192,9 @@ class App extends Component {
           <section>
             <form action="submit" onSubmit={this.handleHolidaySubmit}>
 
-              <h2 onChange={this.handleTest} value={this.state.selectedHoliday}>{this.state.selectedHoliday}</h2>
+              <h2 value={this.state.test.userHoliday}>{this.state.test.userHoliday}</h2>
 
-              <textarea name="plans" cols="30" rows="10" onChange={this.handleHolidayChange} value={this.state.userText}></textarea>
+              <textarea name="plans" cols="30" rows="10" onChange={this.handlePlans} value={this.state.test.userText}></textarea>
               <div>
                 <Button />
               </div>
@@ -188,19 +202,25 @@ class App extends Component {
             </form>
           </section>
 
-          {/* <section>
-            <ul>
-              {this.state.holidayPlans.map((planner) => {
-                return(
-                  <li key={planner.key}>
-                    <div>
-                      <p>{planner.plannerData}</p>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </section> */}
+          <section>
+            <form>
+              <ul>
+                {this.state.holidayPlans.map((planner) => {
+                  // {console.log(planner.plannerData.userText)}
+                  return(
+                    <li key={planner.key}>
+                      <div>
+                        <p>{planner.plannerData.userHoliday}</p>
+                        {/* <p>{planner.plannerData.userText}</p> */}
+                        {/* make another onChange event in text area below */}
+                        <textarea name="madePlans" cols="30" rows="10"  >{planner.plannerData.userText}</textarea>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </form>
+          </section>
       </div>
     );
   }
