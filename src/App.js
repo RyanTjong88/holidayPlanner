@@ -53,7 +53,7 @@ class App extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     axios({
-      url: 'http://proxy.hackeryou.com',
+      url: 'https://proxy.hackeryou.com',
       responseType:'json',
       paramsSerializer: function(params) {
         return Qs.stringify(params, {arrayFormat: 'brackets'})
