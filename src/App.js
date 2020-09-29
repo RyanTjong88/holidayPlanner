@@ -6,8 +6,6 @@ import Qs from 'qs';
 import Dropdown from './Dropdown.js'
 import Button from './Button.js'
 
-
-
 class App extends Component {
   constructor(){
     super();
@@ -17,14 +15,8 @@ class App extends Component {
       date: [],
       selectedHoliday: '',
       // selectedHolidayDate: '',
-      holidayPlans: [
-        // {
-        //   holidayName: '',
-        //   plans: ''
-        // },
-      ],
-
-      test: {
+      holidayPlans: [],
+      firebaseData: {
         userHoliday: '',
         userText: ''
       }
@@ -52,13 +44,9 @@ class App extends Component {
       this.setState({
         holidayPlans: newState
       });
-    console.log(this.state.holidayPlans);
-
-    console.log(this.state.holidayPlans[0].key);
-    console.log(this.state.holidayPlans[0].plannerData);
-
-    
-
+    // console.log(this.state.holidayPlans);
+    // console.log(this.state.holidayPlans[0].key);
+    // console.log(this.state.holidayPlans[0].plannerData);
     });
   }
 
@@ -87,8 +75,7 @@ class App extends Component {
       }
       }).then(results => {
               const nationalHolidays = results.data.response.holidays
-              // console.log(nationalHolidays);
-        
+
               let holidayNames = [];
               let holidayDates = [];
               // holidayNames = holidayNames.filter(e => e !== 'observed');
@@ -97,17 +84,16 @@ class App extends Component {
               nationalHolidays.forEach(holiday => {
                 holidayNames.push(holiday.name)
                 holidayDates.push(holiday.date.iso)
-        
+
                 this.setState({
                   holidays: holidayNames,
                   date: holidayDates
                 })
               });
-        
             })
   }
 
-  handleChange = (event) => {
+  handleYearChange = (event) => {
     // console.log(event.target.value);  // user input data
 
     this.setState({
@@ -121,7 +107,7 @@ class App extends Component {
     // console.log(this.state.selectedHoliday);
     this.setState({
       selectedHoliday: e.target.value,
-      test: {
+      firebaseData: {
         userHoliday: e.target.value
       }
 
@@ -131,70 +117,61 @@ class App extends Component {
   handlePlans = (event) => {
     // console.log(event.target.value);  // user input data
     this.setState({
-      test: {
-        userHoliday: this.state.test.userHoliday,
+      firebaseData: {
+        userHoliday: this.state.firebaseData.userHoliday,
         userText: event.target.value
       }
     });   
   }
 
-  // handleTest = (e) => {
-  //   console.log(e)
-  //   this.setState({
-  //     // holidayPlans: event.target.value
-  //       userText: e.target.value
-      
-  //   }); 
-  // }
-  
-  
   handleHolidaySubmit = (event) => {
     event.preventDefault();
     // open portal to Firebase
     const dbRef = firebase.database().ref();
     // add new record to Firebase
-    // I want to save my <h2> as the key: and the text in the text area to the data[key]
-    dbRef.push(this.state.test);
-    // dbRef.push(this.state.userHoliday);
 
+    dbRef.push(this.state.firebaseData);
+    // dbRef.push(this.state.userHoliday);
 
     // reset input field
     this.setState({
-      test: {
+      firebaseData: {
         userHoliday: '',
         userText: ''
       }
     });
   }
 
-
   render() {
     return (
       <div className="App">
-        <h1>Holiday Planner</h1>
-        <form action="submit" onSubmit={this.handleSubmit}>
-          <label htmlFor="newYear"></label>
-          <input type="text" id="newYear" onChange={this.handleChange} value={this.state.userInput} minLength="4" maxLength="4" placeholder="Enter Year"/>
-          <Button />
+        <header>
+          <h1>Holiday Planner</h1>
+          <form action="submit" onSubmit={this.handleSubmit}>
+            <label htmlFor="newYear"></label>
+            <input type="text" id="newYear" onChange={this.handleYearChange} value={this.state.userInput} minLength="4" maxLength="4" placeholder="Enter Year"/>
+            <Button />
 
-          <div>
-            <select onChange={this.handleClick}  name="holidaySelections">
-            <option>Holiday</option>
-              {this.state.holidays.map((names, index) => {
-                return (
-                  <Dropdown value={this.state.selectedHoliday} name={names} key={index}/>
-                )
-              })}
-            </select>
-          </div>
-        </form>
-        
-          <section>
+            <div>
+              <select onChange={this.handleClick}  name="holidaySelections">
+              <option>Holiday</option>
+                {this.state.holidays.map((names, index) => {
+                  return (
+                    <Dropdown value={this.state.selectedHoliday} name={names} key={index}/>
+                  )
+                })}
+              </select>
+            </div>
+          </form>
+        </header>  
+
+        <main>
+          <section className="holidayPlansSection">
             <form action="submit" onSubmit={this.handleHolidaySubmit}>
 
-              <h2 value={this.state.test.userHoliday}>{this.state.test.userHoliday}</h2>
+              <h2 value={this.state.firebaseData.userHoliday}>{this.state.firebaseData.userHoliday}</h2>
 
-              <textarea name="plans" cols="30" rows="10" onChange={this.handlePlans} value={this.state.test.userText}></textarea>
+              <textarea name="plans" cols="30" rows="10" minLength="10" maxLength="" onChange={this.handlePlans} value={this.state.firebaseData.userText}></textarea>
               <div>
                 <Button />
               </div>
@@ -202,7 +179,7 @@ class App extends Component {
             </form>
           </section>
 
-          <section>
+          <section className="firebaseDataSection">
             <form>
               <ul>
                 {this.state.holidayPlans.map((planner) => {
@@ -211,9 +188,12 @@ class App extends Component {
                     <li key={planner.key}>
                       <div>
                         <p>{planner.plannerData.userHoliday}</p>
-                        {/* <p>{planner.plannerData.userText}</p> */}
                         {/* make another onChange event in text area below */}
-                        <textarea name="madePlans" cols="30" rows="10"  >{planner.plannerData.userText}</textarea>
+                        {/* also needs to update firebase not just delete */}
+                        <textarea name="madePlans" cols="30" rows="10">{planner.plannerData.userText}</textarea>
+                        <div>
+                          <Button />
+                        </div>
                       </div>
                     </li>
                   );
@@ -221,6 +201,7 @@ class App extends Component {
               </ul>
             </form>
           </section>
+        </main>
       </div>
     );
   }

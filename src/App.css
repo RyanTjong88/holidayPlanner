@@ -12,9 +12,27 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
   text-align: center;
 }
 
+/* Header */
+
+header {
+  background-color: palevioletred;
+  padding: 100px;
+}
+
+section {
+  padding: 100px;
+}
+
+.holidayPlansSection {
+  background-color: gold;
+}
 
 .color {
   color: blue;
+}
+
+.firebaseDataSection {
+  background-color: royalblue;
 }
 /* 
 .App-logo {
