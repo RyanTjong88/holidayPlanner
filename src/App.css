@@ -7,10 +7,19 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 *, *:before, *:after {box-sizing: inherit}
 
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
+/* variable declarations */
+
+:root {
+  --headingColor: rgb(56, 49, 49);
+  --buttonBackgroundColor: rgb(79, 79, 233);
+}
+
+
 
 .App,
 header,
 section,
+.yearSection,
 div,
 h1,
 p {
@@ -19,40 +28,113 @@ p {
   margin: 0;
 }
 
+/* Global */
+
+html{
+  font-size: 62.5%;
+}
+
 .wrapper {
   width: 90%;
   max-width: 1280px;
   margin: 0 auto;
 }
 
-.image {
-  background-image: url(./assets/christmasHeader.jpg);
+h1,
+h2,
+h3 {
+  /* z-index: -1; */
+  color: var(--headingColor);
+  font-size: clamp(1.5rem, 10vw, 4rem);
+
+}
+
+/* Buttons */
+
+.buttons {
+  color: var(--headingColor);
+  font-size: clamp(1.5rem, 100vw, 2rem);
+  width: 20rem;
+  padding: 5px;
+  margin-top: 15px; 
+
+  border-radius: 30px;
+  border: none;
+}
+
+.buttons:hover,
+.buttons:focus {
+
+      background-color: var(--buttonBackgroundColor);
+
+      transition: .5s all;
+      
+      transform: translateY(-5px);
+
+      cursor: pointer;
+  } 
+
+/* Background Images */
+
+.christmasday {
+  background-image: url(./assets/christmas/christmasHeader.jpg);
+}
+
+.newYearsEve {
+  background-image: url(./assets/newYearsEve/newYearsEveHeader.jpg);
+}
+
+
+.christmasday,
+.newYearsEve {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 
-  position: absolute;
+  /* position: absolute; */
 
   z-index: -1;
+  width: 80%;
+  height: 75vh;
+  top: 0;
+  left: 0px;
+}
+
+.christmasMain {
+  background-image: url(./assets/christmas/christmasMain.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  /* position: absolute; */
+
+  z-index: -2;
   width: 70vw;
   height: 100vh;
-  top: 0;
-  left: 200px;
+  top: 300px;
+  left: 0;
 }
 
 /* Header */
 
 header {
   /* width: 100vw; */
-  height: 100vh;
-  position: relative;
+  height: 75vh;
+  /* position: relative; */
 }
 
-h1 {
-  z-index: -1;
-  color: antiquewhite;
-
+.yearSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  width: 40%;
+  align-items: center;
+  height: 50%;
+  background-color: green;
 }
+
+
 
 section {
   padding: 100px;

@@ -1,10 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 // make funcional component
 const Button = () => {
-    return (
-        <button>Submit</button>
-        )
+    return <button className="buttons">Submit</button>
     }
-
 
 export default Button;

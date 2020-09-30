@@ -5,6 +5,7 @@ import axios from 'axios';
 import Qs from 'qs';
 import Dropdown from './Dropdown.js'
 import Button from './Button.js'
+// import BackgroundImage from './BackgroungImage';
 
 class App extends Component {
   constructor(){
@@ -18,6 +19,7 @@ class App extends Component {
         userHoliday: '',
         userText: ''
       },
+      test: '',
 
       buttonDate: '',
       buttonText: ''
@@ -101,7 +103,9 @@ class App extends Component {
       firebaseData: {
         userHoliday: e.target.value
       }
-    });
+    }, () => {
+      this.getBackgroundImage();
+    })
   }
 
   handlePlans = (event) => {
@@ -141,11 +145,27 @@ class App extends Component {
     // })
   }
 
+  getBackgroundImage = () => {
+    const selectedHolidayInput = this.state.firebaseData.userHoliday
+    const preparedHoliday = selectedHolidayInput.split('📅')[0].replace(/\s/g, "").toLowerCase()
+
+    // console.log(splitHoliday);
+
+    // if (this.state.firebaseData.userHoliday.includes('newYearsEve')) {
+      this.setState({
+        test: preparedHoliday
+      });
+    // } else {
+    //   console.log(okay)
+    // }
+  }
+
   render() {
+    const backgroundImageClass = this.state.test
     return (
       <div className="App">
-        <header className="wrapper">
-          <section className="wrapper">
+        <header className={`wrapper ${backgroundImageClass}`}>
+          <section className="yearSection">
             <h1>Holiday Planner</h1>
             <form action="submit" onSubmit={this.handleSubmit}>
               <label htmlFor="newYear"></label>
@@ -165,14 +185,6 @@ class App extends Component {
               </div>
             </form>
           </section>
-
-          {this.state.firebaseData.userHoliday.includes("Christmas Day", "Boxing Day") ? 
-
-                (<div className="wrapper" className="image"></div>)
-
-                : 
-
-                (<h3>no death eaters found</h3>)}
         </header>  
 
         <main>
@@ -180,8 +192,6 @@ class App extends Component {
             <form action="submit" onSubmit={this.handleHolidaySubmit}>
 
               <h2 value={this.state.firebaseData.userHoliday}>{this.state.firebaseData.userHoliday}</h2>
-
-              
 
               <textarea name="plans" cols="30" rows="10" minLength="10" maxLength="" onChange={this.handlePlans} value={this.state.firebaseData.userText}></textarea>
               <div>
@@ -208,7 +218,7 @@ class App extends Component {
                           // {/* also needs to update firebase not just delete */}
                       <li>
                         <div>
-                          <p>{planner.plannerData.userHoliday}</p>
+                          <h3>{planner.plannerData.userHoliday}</h3>
 
                           <textarea name="madePlans" cols="30" rows="10">{planner.plannerData.userText}</textarea>
 

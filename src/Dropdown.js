@@ -7,5 +7,5 @@ class Dropdown extends Component {
         )
     }
 }
-
+{/* <span role="img" aria-label="picture of a calender"></span> */}
 export default Dropdown;
