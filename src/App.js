@@ -17,7 +17,10 @@ class App extends Component {
       firebaseData: {
         userHoliday: '',
         userText: ''
-      }
+      },
+
+      buttonDate: '',
+      buttonText: ''
     }
   }
 
@@ -128,28 +131,48 @@ class App extends Component {
     });
   }
 
+  displayKeyData = (e) => {
+    e.preventDefault();
+    // let buttonDate = planner.plannerData.userHoliday
+    // let buttonText = planner.plannerData.userText
+    // this.setState({
+    //   buttonDate,
+    //   buttonText
+    // })
+  }
+
   render() {
     return (
       <div className="App">
-        <header>
-          <h1>Holiday Planner</h1>
-          <form action="submit" onSubmit={this.handleSubmit}>
-            <label htmlFor="newYear"></label>
-            <input type="text" id="newYear" onChange={this.handleYearChange} value={this.state.userInput} minLength="4" maxLength="4" placeholder="Enter Year"/>
-            <Button />
+        <header className="wrapper">
+          <section className="wrapper">
+            <h1>Holiday Planner</h1>
+            <form action="submit" onSubmit={this.handleSubmit}>
+              <label htmlFor="newYear"></label>
+              <input type="text" id="newYear" onChange={this.handleYearChange} value={this.state.userInput} minLength="4" maxLength="4" placeholder="Enter Year"/>
+              <Button />
 
-            <div>
-              <select onChange={this.handleClick}  name="holidaySelections">
-              <option>Holiday</option>
-                {this.state.holidayData.map((data, index) => {
-                  return (
+              <div>
+                <select onChange={this.handleClick}  name="holidaySelections">
+                <option>Holiday</option>
+                  {this.state.holidayData.map((data, index) => {
+                    return (
 
-                    <Dropdown value={this.state.selectedHoliday} name={data.name} date={data.date.iso} key={index}/>
-                  )
-                })}
-              </select>
-            </div>
-          </form>
+                      <Dropdown value={data.name} name={data.name} date={data.date.iso} key={index}/>
+                    )
+                  })}
+                </select>
+              </div>
+            </form>
+          </section>
+
+          {this.state.firebaseData.userHoliday.includes("Christmas Day", "Boxing Day") ? 
+
+                (<div className="wrapper" className="image"></div>)
+
+                : 
+
+                (<h3>no death eaters found</h3>)}
         </header>  
 
         <main>
@@ -157,6 +180,8 @@ class App extends Component {
             <form action="submit" onSubmit={this.handleHolidaySubmit}>
 
               <h2 value={this.state.firebaseData.userHoliday}>{this.state.firebaseData.userHoliday}</h2>
+
+              
 
               <textarea name="plans" cols="30" rows="10" minLength="10" maxLength="" onChange={this.handlePlans} value={this.state.firebaseData.userText}></textarea>
               <div>
@@ -170,19 +195,30 @@ class App extends Component {
             <form>
               <ul>
                 {this.state.holidayPlans.map((planner) => {
-                  // {console.log(planner.plannerData.userText)}
+                  // {console.log(planner)}
                   return(
-                    <li key={planner.key}>
-                      <div>
-                        <p>{planner.plannerData.userHoliday}</p>
-                        {/* make another onChange event in text area below */}
-                        {/* also needs to update firebase not just delete */}
-                        <textarea name="madePlans" cols="30" rows="10">{planner.plannerData.userText}</textarea>
+                    // <div>
+                      
+                      // {/* <li>
+                      //   <button key={planner.key} onClick={this.displayKeyData} dateone={planner.plannerData.userHoliday} text={planner.plannerData.userText}>{planner.plannerData.userHoliday}</button>
+                      // {console.log(this.props.dateone)}
+                      // </li> */}
+                      
+                      //  {/* make another onChange event in text area below */}
+                          // {/* also needs to update firebase not just delete */}
+                      <li>
                         <div>
-                          <Button />
+                          <p>{planner.plannerData.userHoliday}</p>
+
+                          <textarea name="madePlans" cols="30" rows="10">{planner.plannerData.userText}</textarea>
+
+                          <div>
+                            <Button />
+                          </div>
+
                         </div>
-                      </div>
-                    </li>
+                      </li>
+                    // </div>
                   );
                 })}
               </ul>

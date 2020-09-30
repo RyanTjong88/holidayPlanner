@@ -8,15 +8,50 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
 
-.App {
+.App,
+header,
+section,
+div,
+h1,
+p {
   text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.wrapper {
+  width: 90%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.image {
+  background-image: url(./assets/christmasHeader.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  position: absolute;
+
+  z-index: -1;
+  width: 70vw;
+  height: 100vh;
+  top: 0;
+  left: 200px;
 }
 
 /* Header */
 
 header {
-  background-color: palevioletred;
-  padding: 100px;
+  /* width: 100vw; */
+  height: 100vh;
+  position: relative;
+}
+
+h1 {
+  z-index: -1;
+  color: antiquewhite;
+
 }
 
 section {
