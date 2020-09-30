@@ -11,10 +11,8 @@ class App extends Component {
     super();
     this.state = {
       userInput: '',
-      holidays: [],
-      date: [],
+      holidayData: [],
       selectedHoliday: '',
-      // selectedHolidayDate: '',
       holidayPlans: [],
       firebaseData: {
         userHoliday: '',
@@ -73,49 +71,37 @@ class App extends Component {
         },
         xmlToJSON: false
       }
-      }).then(results => {
-              const nationalHolidays = results.data.response.holidays
+    }).then(results => {
+      const nationalHolidays = results.data.response.holidays
 
-              let holidayNames = [];
-              let holidayDates = [];
-              // holidayNames = holidayNames.filter(e => e !== 'observed');
-              // console.log(holidayNames);
-              // console.log(holidayDates);
-              nationalHolidays.forEach(holiday => {
-                holidayNames.push(holiday.name)
-                holidayDates.push(holiday.date.iso)
+      let holidayData = [];
 
-                this.setState({
-                  holidays: holidayNames,
-                  date: holidayDates
-                })
-              });
-            })
+      nationalHolidays.forEach(holiday => {
+        holidayData.push(holiday)
+
+        this.setState({
+          holidayData
+        })
+      });
+    })
   }
 
   handleYearChange = (event) => {
-    // console.log(event.target.value);  // user input data
-
     this.setState({
       userInput: event.target.value
     });
-
   }
   
   handleClick = (e) => {
-    // console.log(e.target.value);  // user input data
-    // console.log(this.state.selectedHoliday);
     this.setState({
       selectedHoliday: e.target.value,
       firebaseData: {
         userHoliday: e.target.value
       }
-
     });
   }
 
   handlePlans = (event) => {
-    // console.log(event.target.value);  // user input data
     this.setState({
       firebaseData: {
         userHoliday: this.state.firebaseData.userHoliday,
@@ -126,12 +112,12 @@ class App extends Component {
 
   handleHolidaySubmit = (event) => {
     event.preventDefault();
+
     // open portal to Firebase
     const dbRef = firebase.database().ref();
-    // add new record to Firebase
 
+    // add new record to Firebase
     dbRef.push(this.state.firebaseData);
-    // dbRef.push(this.state.userHoliday);
 
     // reset input field
     this.setState({
@@ -155,9 +141,10 @@ class App extends Component {
             <div>
               <select onChange={this.handleClick}  name="holidaySelections">
               <option>Holiday</option>
-                {this.state.holidays.map((names, index) => {
+                {this.state.holidayData.map((data, index) => {
                   return (
-                    <Dropdown value={this.state.selectedHoliday} name={names} key={index}/>
+
+                    <Dropdown value={this.state.selectedHoliday} name={data.name} date={data.date.iso} key={index}/>
                   )
                 })}
               </select>
