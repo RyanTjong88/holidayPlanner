@@ -8,13 +8,6 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
 
-/* variable declarations */
-
-:root {
-  --headingColor: rgb(56, 49, 49);
-  --buttonBackgroundColor: rgb(123, 123, 145);
-}
-
 /* Fonts */
 
 /* font-family: 'Indie Flower', cursive;
@@ -25,14 +18,14 @@ font-family: 'Secular One', sans-serif; */
 
 header,
 section,
-.yearSection,
 div,
 h1,
 h2,
 form,
 ul,
 li,
-p {
+p,
+.yearSection {
   text-align: center;
   padding: 0;
   margin: 0;
@@ -55,7 +48,7 @@ h2,
 h3 {
   font: 400 clamp(2rem, 5vw, 4rem) 'Secular One', sans-serif;
 
-  color: var(--headingColor);
+  color:  rgb(56, 49, 49);
 }
 
 li {
@@ -67,7 +60,6 @@ textarea {
 
   resize: none;
   
-  min-width: 300px;
   width: 50%;
   height: 300px;
   padding: 10px 0 0 10px;
@@ -77,7 +69,7 @@ textarea {
 
 .buttons {
   font: 400 clamp(1.5rem, 100vw, 2rem) 'Secular One', sans-serif;
-  color: var(--headingColor);
+  color:  rgb(56, 49, 49);
 
   width: 20rem;
   padding: 5px;
@@ -89,7 +81,7 @@ textarea {
 
 .buttons:hover,
 .buttons:focus {
-      background-color: var(--buttonBackgroundColor);
+      background-color: rgb(123, 123, 145);
 
       transition: .5s all;
       transform: translateY(-5px);
@@ -149,7 +141,6 @@ header {
   
   width: 90;
   height: 75vh;
-  border-radius: 30px;
 }
 
 .yearSection {
@@ -162,9 +153,14 @@ header {
 
   margin-top: 50px;
   min-width: 420px;
+  min-height: 290px;
   width: 40%;
   height: 50%;
   border-radius: 30px;
+}
+
+h1 {
+  padding-bottom: 20px;
 }
 
 /* user Year Input */
@@ -177,14 +173,15 @@ header {
   height: 40px;
   width: 100%;
   border-radius: 30px;
-
   border: none;
+
+  cursor: pointer;
 }
 .yearInput:hover,
 .dropdown:hover
 .yearInput:focus,
 .dropdown:focus {
-  border: 2px solid var(--headingColor);
+  border: 2px solid  rgb(56, 49, 49);
 }
 
 .headerButtonContainer button:nth-child(1) {
@@ -210,22 +207,15 @@ header {
 
   margin-top: 50px;
   padding: 50px 0 50px;
-  max-height: max-content;
+}
+.firstForm {
+  width: 100%;
 }
 
-.mainContentOne {
-  height: 400px;
-  width: 80%;
+h2 {
+  padding-bottom: 30px;
 }
 
-.mainImage {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-
-  width: 50%;
-  height: 75vw
-}
 .firebaseDataSection {
   padding: 20px 0 100px;
 }
@@ -246,14 +236,43 @@ a {
 
 /* media queries */
 
-/* Portrait tablet and small desktops */
-@media (max-width: 940px) {
-}
-
 /* Landscape phone to portrait tablet */
 @media (max-width: 768px) {
+
+  header {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: center;
+
+    background-position-y: 10%;
+
+    height: 70vh;
+  }
+
+  h1 {
+    font-size: 3.2rem;
+  }
+
+  .yearSection {
+    min-width: 100%;
+  }
+
+  textarea {
+    min-width: 100%;
+  }
 }
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
+
+  .yearInput,
+  .dropdown, 
+  .headerButtonContainer button:nth-child(1) {
+    width: 95%;
+  }
+
+  .dropdown {
+    font-size: 1.8rem;
+  }
 }

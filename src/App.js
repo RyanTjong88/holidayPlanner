@@ -5,7 +5,6 @@ import axios from 'axios';
 import Qs from 'qs';
 import Dropdown from './Dropdown.js'
 import Button from './Button.js'
-// import BackgroundImage from './BackgroungImage';
 
 class App extends Component {
   constructor(){
@@ -20,9 +19,6 @@ class App extends Component {
         userText: ''
       },
       newClass: '',
-
-      buttonDate: '',
-      buttonText: ''
     }
   }
 
@@ -190,35 +186,32 @@ class App extends Component {
         <main>
           <section className="holidayPlansSection">
             <div className="wrapper mainContainerOne">
-              <div className="mainContentOne">
-                <form action="submit" onSubmit={this.handleHolidaySubmit}>
+              <form className="firstForm" action="submit" onSubmit={this.handleHolidaySubmit}>
 
-                    <h2 value={this.state.firebaseData.userHoliday}>{this.state.firebaseData.userHoliday}</h2>
+                  <h2 value={this.state.firebaseData.userHoliday}>{this.state.firebaseData.userHoliday}</h2>
 
-                  <textarea
-                    name="plans" 
-                    cols="30" 
-                    rows="10" 
-                    minLength="10" 
-                    maxLength="" 
-                    onChange={this.handlePlans}
-                    value={this.state.firebaseData.userText}
-                    placeholder="Let's Make Some Plans!"
-                  >
-                  </textarea>
+                <textarea
+                  name="plans" 
+                  cols="30" 
+                  rows="10" 
+                  minLength="10" 
+                  maxLength="" 
+                  onChange={this.handlePlans}
+                  value={this.state.firebaseData.userText}
+                  placeholder="Let's Make Some Plans!"
+                >
+                </textarea>
 
-                  <div>
-                    <Button />
-                  </div>
+                <div>
+                  <Button />
+                </div>
 
-                </form>
-              </div>
-
+              </form>
             </div>
           </section>
 
           <section className="firebaseDataSection">
-            <div>
+            <div className="wrapper">
               <form>
                 <ul>
                   {this.state.holidayPlans.map((planner) => {
