@@ -46,7 +46,8 @@ html{
 h1,
 h2,
 h3 {
-  font: 400 clamp(2rem, 5vw, 4rem) 'Secular One', sans-serif;
+  font-family: 'Secular One', sans-serif;
+  font-size: clamp(2rem, 5vw, 4rem);
 
   color:  rgb(56, 49, 49);
 }
@@ -56,7 +57,8 @@ li {
 }
 
 textarea {
-  font: 400 clamp(2em, 10vw, 2.5rem) 'Indie Flower', cursive;
+  font-family: 'Indie Flower', cursive;
+  font-size: clamp(2em, 10vw, 2.5rem);
 
   resize: none;
   
@@ -68,7 +70,8 @@ textarea {
 /* Buttons */
 
 .buttons {
-  font: 400 clamp(1.5rem, 100vw, 2rem) 'Secular One', sans-serif;
+  font-family: 'Secular One', sans-serif;
+  font-size: clamp(1.5rem, 100vw, 2rem);
   color:  rgb(56, 49, 49);
 
   width: 20rem;
