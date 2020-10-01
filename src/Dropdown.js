@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 class Dropdown extends Component {
     render() {
         return (
-            <option>{this.props.name}  📅  {this.props.date}</option>
+            <option className="dropdownComponent" >{this.props.name}  📅  {this.props.date}</option>
         )
     }
 }

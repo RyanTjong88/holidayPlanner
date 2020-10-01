@@ -19,7 +19,7 @@ class App extends Component {
         userHoliday: '',
         userText: ''
       },
-      test: '',
+      newClass: '',
 
       buttonDate: '',
       buttonText: ''
@@ -32,7 +32,6 @@ class App extends Component {
     const dbRef = firebase.database().ref();
     // listen to the value change and use `response` as the db value
     dbRef.on('value', (response) => {
-      // console.log(response.val());
       // clean up data from Firebase and store in state
       const newState = [];
       const data = response.val();
@@ -47,9 +46,6 @@ class App extends Component {
       this.setState({
         holidayPlans: newState
       });
-    // console.log(this.state.holidayPlans);
-    // console.log(this.state.holidayPlans[0].key);
-    // console.log(this.state.holidayPlans[0].plannerData);
     });
   }
 
@@ -87,8 +83,8 @@ class App extends Component {
         this.setState({
           holidayData
         })
-      });
-    })
+      }); 
+    }) 
   }
 
   handleYearChange = (event) => {
@@ -135,45 +131,48 @@ class App extends Component {
     });
   }
 
-  displayKeyData = (e) => {
-    e.preventDefault();
-    // let buttonDate = planner.plannerData.userHoliday
-    // let buttonText = planner.plannerData.userText
-    // this.setState({
-    //   buttonDate,
-    //   buttonText
-    // })
-  }
-
+  // this function adds selected holidays image
   getBackgroundImage = () => {
     const selectedHolidayInput = this.state.firebaseData.userHoliday
-    const preparedHoliday = selectedHolidayInput.split('📅')[0].replace(/\s/g, "").toLowerCase()
+    const preparedHoliday = selectedHolidayInput.split('📅')[0].replace(/\s/g, "").replace("'", "")
+    // replaces first letter of string to lowercase
+    const preparedHolidayTwo = preparedHoliday.replace(/^./, preparedHoliday[0].toLowerCase());
 
-    // console.log(splitHoliday);
-
-    // if (this.state.firebaseData.userHoliday.includes('newYearsEve')) {
       this.setState({
-        test: preparedHoliday
+        newClass: preparedHolidayTwo
       });
-    // } else {
-    //   console.log(okay)
-    // }
   }
 
   render() {
-    const backgroundImageClass = this.state.test
+    const backgroundImageClass = this.state.newClass
     return (
-      <div className="App">
+      <>
         <header className={`wrapper ${backgroundImageClass}`}>
           <section className="yearSection">
             <h1>Holiday Planner</h1>
             <form action="submit" onSubmit={this.handleSubmit}>
-              <label htmlFor="newYear"></label>
-              <input type="text" id="newYear" onChange={this.handleYearChange} value={this.state.userInput} minLength="4" maxLength="4" placeholder="Enter Year"/>
-              <Button />
 
               <div>
-                <select onChange={this.handleClick}  name="holidaySelections">
+                <label htmlFor="newYear"></label>
+
+                <input 
+                type="text" 
+                className="yearInput" 
+                id="newYear" 
+                onChange={this.handleYearChange} 
+                value={this.state.userInput} 
+                minLength="4" 
+                maxLength="4" 
+                placeholder="Enter Year"
+                />
+              </div>
+
+              <div className="headerButtonContainer">
+                <Button />
+              </div>
+
+              <div>
+                <select className="dropdown" onChange={this.handleClick}  name="holidaySelections">
                 <option>Holiday</option>
                   {this.state.holidayData.map((data, index) => {
                     return (
@@ -183,59 +182,77 @@ class App extends Component {
                   })}
                 </select>
               </div>
+
             </form>
           </section>
         </header>  
 
         <main>
           <section className="holidayPlansSection">
-            <form action="submit" onSubmit={this.handleHolidaySubmit}>
+            <div className="wrapper mainContainerOne">
+              <div className="mainContentOne">
+                <form action="submit" onSubmit={this.handleHolidaySubmit}>
 
-              <h2 value={this.state.firebaseData.userHoliday}>{this.state.firebaseData.userHoliday}</h2>
+                    <h2 value={this.state.firebaseData.userHoliday}>{this.state.firebaseData.userHoliday}</h2>
 
-              <textarea name="plans" cols="30" rows="10" minLength="10" maxLength="" onChange={this.handlePlans} value={this.state.firebaseData.userText}></textarea>
-              <div>
-                <Button />
+                  <textarea
+                    name="plans" 
+                    cols="30" 
+                    rows="10" 
+                    minLength="10" 
+                    maxLength="" 
+                    onChange={this.handlePlans}
+                    value={this.state.firebaseData.userText}
+                    placeholder="Let's Make Some Plans!"
+                  >
+                  </textarea>
+
+                  <div>
+                    <Button />
+                  </div>
+
+                </form>
               </div>
 
-            </form>
+            </div>
           </section>
 
           <section className="firebaseDataSection">
-            <form>
-              <ul>
-                {this.state.holidayPlans.map((planner) => {
-                  // {console.log(planner)}
-                  return(
-                    // <div>
-                      
-                      // {/* <li>
-                      //   <button key={planner.key} onClick={this.displayKeyData} dateone={planner.plannerData.userHoliday} text={planner.plannerData.userText}>{planner.plannerData.userHoliday}</button>
-                      // {console.log(this.props.dateone)}
-                      // </li> */}
-                      
-                      //  {/* make another onChange event in text area below */}
-                          // {/* also needs to update firebase not just delete */}
-                      <li>
+            <div>
+              <form>
+                <ul>
+                  {this.state.holidayPlans.map((planner) => {
+                    return(
+                      <li key={planner.key}>
                         <div>
                           <h3>{planner.plannerData.userHoliday}</h3>
 
-                          <textarea name="madePlans" cols="30" rows="10">{planner.plannerData.userText}</textarea>
+                          <textarea 
+                          name="madePlans" 
+                          cols="30" 
+                          rows="10" 
+                          readOnly="readOnly"
+                          value={planner.plannerData.userText}
+                          >
 
-                          <div>
-                            <Button />
-                          </div>
+                            {planner.plannerData.userText}
 
+                          </textarea>
                         </div>
                       </li>
-                    // </div>
-                  );
-                })}
-              </ul>
-            </form>
+                    );
+                  })}
+                </ul>
+              </form>
+            </div>
           </section>
         </main>
-      </div>
+
+        <footer>
+          <a href="https://junocollege.com/">Created at Juno College</a>
+          <p>Developed by Ryan Tjong</p>
+        </footer>
+      </>
     );
   }
 }

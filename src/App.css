@@ -7,21 +7,31 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 *, *:before, *:after {box-sizing: inherit}
 
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
+
 /* variable declarations */
 
 :root {
   --headingColor: rgb(56, 49, 49);
-  --buttonBackgroundColor: rgb(79, 79, 233);
+  --buttonBackgroundColor: rgb(123, 123, 145);
 }
 
+/* Fonts */
 
+/* font-family: 'Indie Flower', cursive;
 
-.App,
+font-family: 'Secular One', sans-serif; */
+
+/* stripping  */
+
 header,
 section,
 .yearSection,
 div,
 h1,
+h2,
+form,
+ul,
+li,
 p {
   text-align: center;
   padding: 0;
@@ -43,17 +53,32 @@ html{
 h1,
 h2,
 h3 {
-  /* z-index: -1; */
-  color: var(--headingColor);
-  font-size: clamp(1.5rem, 10vw, 4rem);
+  font: 400 clamp(2rem, 5vw, 4rem) 'Secular One', sans-serif;
 
+  color: var(--headingColor);
+}
+
+li {
+  list-style: none;
+}
+
+textarea {
+  font: 400 clamp(2em, 10vw, 2.5rem) 'Indie Flower', cursive;
+
+  resize: none;
+  
+  min-width: 300px;
+  width: 50%;
+  height: 300px;
+  padding: 10px 0 0 10px;
 }
 
 /* Buttons */
 
 .buttons {
+  font: 400 clamp(1.5rem, 100vw, 2rem) 'Secular One', sans-serif;
   color: var(--headingColor);
-  font-size: clamp(1.5rem, 100vw, 2rem);
+
   width: 20rem;
   padding: 5px;
   margin-top: 15px; 
@@ -64,11 +89,9 @@ h3 {
 
 .buttons:hover,
 .buttons:focus {
-
       background-color: var(--buttonBackgroundColor);
 
       transition: .5s all;
-      
       transform: translateY(-5px);
 
       cursor: pointer;
@@ -76,113 +99,161 @@ h3 {
 
 /* Background Images */
 
-.christmasday {
+.boxingDay {
+  background-image: url(./assets/boxingDay/boxingDayHeader.jpg);
+}
+
+.canadaDay {
+  background-image: url(./assets/canadaDay/canadaDayHeader.jpg);
+}
+
+.christmasDay {
   background-image: url(./assets/christmas/christmasHeader.jpg);
 }
 
-.newYearsEve {
+.easterMonday {
+  background-image: url(./assets/easterMonday/easterHeader.jpg);
+}
+
+.goodFriday {
+  background-image: url(./assets/goodFriday/goodFridayHeader.jpg);
+}
+
+.labourDay {
+  background-image: url(./assets/labourDay/labourDayHeader.jpg);
+}
+
+.newYearsDay {
   background-image: url(./assets/newYearsEve/newYearsEveHeader.jpg);
 }
 
-
-.christmasday,
-.newYearsEve {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-
-  /* position: absolute; */
-
-  z-index: -1;
-  width: 80%;
-  height: 75vh;
-  top: 0;
-  left: 0px;
+.remembranceDay {
+  background-image: url(./assets/remembranceDay/remembranceDayHeader.jpg);
 }
 
-.christmasMain {
-  background-image: url(./assets/christmas/christmasMain.jpg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+.thanksgivingDay {
+  background-image: url(./assets/thanksgiving/thanksgivingHeader.jpg);
+}
 
-  /* position: absolute; */
-
-  z-index: -2;
-  width: 70vw;
-  height: 100vh;
-  top: 300px;
-  left: 0;
+.victoriaDay {
+  background-image: url(./assets/victoriaDay/victoriaDayHeadeer.jpg);
 }
 
 /* Header */
 
 header {
-  /* width: 100vw; */
+  background-image: url(./assets/maldives.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  width: 90;
   height: 75vh;
-  /* position: relative; */
+  border-radius: 30px;
 }
 
 .yearSection {
+  background-color: rgb(245, 227, 195);
+
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
-  width: 40%;
   align-items: center;
+
+  margin-top: 50px;
+  min-width: 420px;
+  width: 40%;
   height: 50%;
-  background-color: green;
+  border-radius: 30px;
 }
 
+/* user Year Input */
 
+.yearInput,
+.dropdown  {
+  font: 400 2rem 'Secular One', sans-serif;
 
-section {
-  padding: 100px;
+  padding-left: 20px;
+  height: 40px;
+  width: 100%;
+  border-radius: 30px;
+
+  border: none;
 }
+.yearInput:hover,
+.dropdown:hover
+.yearInput:focus,
+.dropdown:focus {
+  border: 2px solid var(--headingColor);
+}
+
+.headerButtonContainer button:nth-child(1) {
+  width: 100%;
+}
+
+.dropdown {
+  margin-top: 20px;
+  border-radius: 30px 0 0 30px;
+}
+
+/* main */
 
 .holidayPlansSection {
-  background-color: gold;
+  background-color: rgb(245, 227, 195);
+
+  height: min-content;
 }
 
-.color {
-  color: blue;
-}
-
-.firebaseDataSection {
-  background-color: royalblue;
-}
-/* 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.mainContainerOne {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+  margin-top: 50px;
+  padding: 50px 0 50px;
+  max-height: max-content;
 }
 
-.App-link {
-  color: #61dafb;
+.mainContentOne {
+  height: 400px;
+  width: 80%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+.mainImage {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  width: 50%;
+  height: 75vw
+}
+.firebaseDataSection {
+  padding: 20px 0 100px;
+}
+
+/* footer */
+
+footer {
+  background-color: rgb(245, 227, 195);
+
+  height: 15vh;
+  padding-top: 30px;
+}
+
+p,
+a {
+  font: 400 2rem 'Secular One', sans-serif;
+}
+
+/* media queries */
+
+/* Portrait tablet and small desktops */
+@media (max-width: 940px) {
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+}
