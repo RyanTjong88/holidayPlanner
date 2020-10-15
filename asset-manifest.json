@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/holidayPlanner/static/css/main.7db2d4bc.chunk.css",
+    "main.js": "/holidayPlanner/static/js/main.fbe6ec93.chunk.js",
+    "main.js.map": "/holidayPlanner/static/js/main.fbe6ec93.chunk.js.map",
+    "runtime-main.js": "/holidayPlanner/static/js/runtime-main.39d74541.js",
+    "runtime-main.js.map": "/holidayPlanner/static/js/runtime-main.39d74541.js.map",
+    "static/js/2.9c672c0d.chunk.js": "/holidayPlanner/static/js/2.9c672c0d.chunk.js",
+    "static/js/2.9c672c0d.chunk.js.map": "/holidayPlanner/static/js/2.9c672c0d.chunk.js.map",
+    "index.html": "/holidayPlanner/index.html",
+    "precache-manifest.0722cf26904b0b4df4957b55dee1ae31.js": "/holidayPlanner/precache-manifest.0722cf26904b0b4df4957b55dee1ae31.js",
+    "service-worker.js": "/holidayPlanner/service-worker.js",
+    "static/css/main.7db2d4bc.chunk.css.map": "/holidayPlanner/static/css/main.7db2d4bc.chunk.css.map",
+    "static/js/2.9c672c0d.chunk.js.LICENSE.txt": "/holidayPlanner/static/js/2.9c672c0d.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/holidayPlanner/static/media/victoriaDayHeadeer.bfdc0a00.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.39d74541.js",
+    "static/js/2.9c672c0d.chunk.js",
+    "static/css/main.7db2d4bc.chunk.css",
+    "static/js/main.fbe6ec93.chunk.js"
+  ]
+}
