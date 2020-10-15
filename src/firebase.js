@@ -1,7 +1,6 @@
 import firebase from 'firebase/app';    //firebase
 import 'firebase/database';             //firebase database
 
-//copy and pasted from realtime database
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDLPmBSOJArNcPL9QnPglUBmu5bKjNyt9g",
